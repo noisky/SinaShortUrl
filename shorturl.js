@@ -40,6 +40,5 @@ function get() {
 		}
 		var text = loadInfo.innerText;
 		loadInfo.innerText = text + ".";
-		console.log(".");
 	},1000);
 }; 
