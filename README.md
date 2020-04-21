@@ -8,6 +8,7 @@ Demo：https://api.ffis.me/url/
 
 ### 使用方式
 直接在网站目录下 `git clone` 即可
+
 `git clone https://github.com/noisky/SinaShortUrl.git`
 
 ### 接口调用
