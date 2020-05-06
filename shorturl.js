@@ -1,6 +1,6 @@
 /**
  * Created by Noisky on 2017/12/31.
- * Revised by Noisky on 2020/04/21.
+ * Revised by Noisky on 2020/05/06.
  */
 function get() {
 	var long = document.input.long.value;//获取长网址 
@@ -19,15 +19,21 @@ function get() {
 	xmlhttp.onreadystatechange = function() {
 		// readyState == 4说明请求已完成
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200 || xmlhttp.status == 304) { 
-		  // 从服务器获得数据 
-			var fuckjs = new Function("return" + xmlhttp.responseText)();//将返回数据视作对象
-			var fuckjson = fuckjs.url_short;//提取短网址
+		    //从服务器获得数据 
+			var returnDate = new Function("return" + xmlhttp.responseText)();//将返回数据视作对象
+			var returnUrl = returnDate.url_short;//提取短网址
 			//停止定时器
 			clearInterval(startClock);
-			//隐藏loading
-			document.getElementById("loading").style.display = "none";
-			//输出短网址
-			document.getElementById("link").innerHTML="<p>短网址：</p><br><input type='text' class='kw' value='"+fuckjson+"'><br><br>";
+			if (returnDate.flag) {
+				//隐藏loading
+				document.getElementById("loading").style.display = "none";
+				//输出短网址
+				document.getElementById("link").style.display = "block";
+				document.getElementById("link").innerHTML="<p>短网址：</p><br><input type='text' class='kw' value='"+returnUrl+"'><br><br>";
+			} else {
+				document.getElementById("link").style.display = "none";
+				document.getElementById("loading").innerHTML = "<span class='errInfo'>请求失败！</span>"
+			}
 		}
 	  };
 	xmlhttp.send();//发送GET请求
